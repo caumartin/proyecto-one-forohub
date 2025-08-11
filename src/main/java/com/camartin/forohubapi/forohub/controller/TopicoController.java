@@ -1,15 +1,12 @@
 package com.camartin.forohubapi.forohub.controller;
 
-import com.camartin.forohubapi.forohub.topico.*;
+import com.camartin.forohubapi.forohub.domain.topico.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/topicos")

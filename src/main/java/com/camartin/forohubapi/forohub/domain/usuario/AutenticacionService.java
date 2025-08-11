@@ -1,4 +1,4 @@
-package com.camartin.forohubapi.forohub.usuario;
+package com.camartin.forohubapi.forohub.domain.usuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +14,6 @@ public class AutenticacionService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return repository.findByUser(username);
+        return repository.findByLogin(username);
     }
 }

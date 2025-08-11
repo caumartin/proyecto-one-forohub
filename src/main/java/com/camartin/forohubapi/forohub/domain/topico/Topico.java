@@ -1,6 +1,5 @@
-package com.camartin.forohubapi.forohub.topico;
+package com.camartin.forohubapi.forohub.domain.topico;
 
-import com.camartin.forohubapi.forohub.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
