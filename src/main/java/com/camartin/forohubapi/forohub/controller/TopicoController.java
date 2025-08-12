@@ -26,9 +26,9 @@ public class TopicoController {
     @Transactional
     @PostMapping
     public ResponseEntity crear(@RequestBody @Valid DatosCrearTopico datos, UriComponentsBuilder uriComponentsBuilder, @RequestHeader("Authorization") String autorizacion) {
-        //System.out.println(autorizacion);
 
         var subject = tokenService.getSubject(autorizacion.replace("Bearer ",""));
+        //Saco usuario del JWT para usarlo como autor del tópico
         var usuario = usuarioRepository.findByLogin(subject);
 
         var topico = new Topico(datos, usuario.getUsername());

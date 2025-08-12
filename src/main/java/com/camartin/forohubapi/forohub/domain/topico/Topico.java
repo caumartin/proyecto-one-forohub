@@ -1,17 +1,12 @@
 package com.camartin.forohubapi.forohub.domain.topico;
 
-import com.camartin.forohubapi.forohub.domain.usuario.Usuario;
-import com.camartin.forohubapi.forohub.infra.security.TokenService;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 
 @Getter
@@ -40,7 +35,7 @@ public class Topico {
         this.id = null;
         this.titulo = topico.titulo();
         this.mensaje = topico.mensaje();
-        this.fechaCreacion = LocalDateTime.now();//toInstant(ZoneOffset.of("-03:00"));
+        this.fechaCreacion = LocalDateTime.now();
         this.estado = Status.ACTIVO;
         this.autor = usuario;
         this.curso = topico.curso();
