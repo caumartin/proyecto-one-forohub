@@ -1,5 +1,7 @@
 package com.camartin.forohubapi.forohub.domain.topico;
 
+import com.camartin.forohubapi.forohub.domain.usuario.Usuario;
+import com.camartin.forohubapi.forohub.infra.security.TokenService;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -33,13 +35,14 @@ public class Topico {
     private Curso curso;
     private List<String> respuestas;
 
-    public Topico(DatosCrearTopico topico) {
+    public Topico(DatosCrearTopico topico, String usuario) {
+
         this.id = null;
         this.titulo = topico.titulo();
         this.mensaje = topico.mensaje();
         this.fechaCreacion = LocalDateTime.now();//toInstant(ZoneOffset.of("-03:00"));
         this.estado = Status.ACTIVO;
-        this.autor = topico.autor();
+        this.autor = usuario;
         this.curso = topico.curso();
         this.respuestas = null;
 
@@ -53,9 +56,9 @@ public class Topico {
         if (datos.mensaje() != null) {
             this.mensaje = datos.mensaje();
         }
-        if (datos.autor() != null) {
-            this.autor = datos.autor();
-        }
+        //if (datos.autor() != null) {
+        //    this.autor = datos.autor();
+        //}
         if (datos.curso() != null) {
             this.curso = datos.curso();
         }

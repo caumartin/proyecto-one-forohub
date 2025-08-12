@@ -1,6 +1,8 @@
 package com.camartin.forohubapi.forohub.controller;
 
 import com.camartin.forohubapi.forohub.domain.topico.*;
+import com.camartin.forohubapi.forohub.domain.usuario.UsuarioRepository;
+import com.camartin.forohubapi.forohub.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,21 @@ public class TopicoController {
     @Autowired
     private TopicoRepository repository;
 
+    @Autowired
+    private TokenService tokenService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
     @Transactional
     @PostMapping
-    public ResponseEntity crear(@RequestBody @Valid DatosCrearTopico datos, UriComponentsBuilder uriComponentsBuilder) {
-        var topico = new Topico(datos);
+    public ResponseEntity crear(@RequestBody @Valid DatosCrearTopico datos, UriComponentsBuilder uriComponentsBuilder, @RequestHeader("Authorization") String autorizacion) {
+        //System.out.println(autorizacion);
+
+        var subject = tokenService.getSubject(autorizacion.replace("Bearer ",""));
+        var usuario = usuarioRepository.findByLogin(subject);
+
+        var topico = new Topico(datos, usuario.getUsername());
         repository.save(topico);
         var uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(topico. getId()).toUri();
         return ResponseEntity.created(uri).body(new DatosDetalleTopico(topico));
