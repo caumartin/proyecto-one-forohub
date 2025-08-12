@@ -1,12 +1,14 @@
 package com.camartin.forohubapi.forohub.domain.topico;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record DatosDetalleTopico(
         Long id,
         String titulo,
         String mensaje,
-        String fechaCreacion,
+        LocalDateTime fechaCreacion,
         Status estado,
         String autor,
         Curso curso,

@@ -7,6 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Getter
@@ -22,7 +25,7 @@ public class Topico {
     private Long id;
     private String titulo;
     private String mensaje;
-    private String fechaCreacion;
+    private LocalDateTime fechaCreacion;
     @Enumerated(EnumType.STRING)
     private Status estado;
     private String autor;
@@ -34,7 +37,7 @@ public class Topico {
         this.id = null;
         this.titulo = topico.titulo();
         this.mensaje = topico.mensaje();
-        this.fechaCreacion = "10/08/2025";
+        this.fechaCreacion = LocalDateTime.now();//toInstant(ZoneOffset.of("-03:00"));
         this.estado = Status.ACTIVO;
         this.autor = topico.autor();
         this.curso = topico.curso();
