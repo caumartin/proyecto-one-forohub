@@ -40,8 +40,16 @@ public class RespuestaController {
         topico.getRespuestas().add(respuesta);
         repository.save(topico);
 
-        var uri = uriComponentsBuilder.path("/respuestas/{id}").buildAndExpand(respuesta. getId()).toUri();
+        var uri = uriComponentsBuilder.path("/topicos/{topicoId}/respuestas/").buildAndExpand(topico.getId()).toUri();
         return ResponseEntity.created(uri).body(new DatosDetalleRespuesta(respuesta));
+    }
+
+    @GetMapping
+    public ResponseEntity listarRerspuestasPorTopico(@PathVariable Long topicoId) {
+        var topico = repository.getReferenceById(topicoId);
+        var respuestas = topico.getRespuestas();
+
+        return ResponseEntity.ok(respuestas.stream().map(res -> new DatosDetalleRespuesta(res)));
     }
 
 }
