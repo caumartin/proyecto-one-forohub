@@ -1,5 +1,6 @@
 package com.camartin.forohubapi.forohub.domain.topico;
 
+import com.camartin.forohubapi.forohub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,22 +24,24 @@ public class Topico {
     private Long id;
     private String titulo;
     private String mensaje;
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
     @Enumerated(EnumType.STRING)
     private Status estado;
-    private String autor;
+    @ManyToOne
+    @JoinColumn (name = "creador", nullable = false)
+    private Usuario creador;
     @Enumerated(EnumType.STRING)
     private Curso curso;
-    private List<String> respuestas;
+    private String respuestas;
 
-    public Topico(DatosCrearTopico topico, String usuario) {
+    public Topico(DatosCrearTopico topico, Usuario usuario) {
 
         this.id = null;
         this.titulo = topico.titulo();
         this.mensaje = topico.mensaje();
-        this.fechaCreacion = LocalDateTime.now();
+        //this.fechaCreacion = LocalDateTime.now();
         this.estado = Status.ACTIVO;
-        this.autor = usuario;
+        this.creador = usuario;
         this.curso = topico.curso();
         this.respuestas = null;
 
@@ -51,9 +55,6 @@ public class Topico {
         if (datos.mensaje() != null) {
             this.mensaje = datos.mensaje();
         }
-        //if (datos.autor() != null) {
-        //    this.autor = datos.autor();
-        //}
         if (datos.curso() != null) {
             this.curso = datos.curso();
         }

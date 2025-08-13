@@ -1,5 +1,6 @@
 package com.camartin.forohubapi.forohub.domain.usuario;
 
+import com.camartin.forohubapi.forohub.domain.topico.Topico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,8 @@ public class Usuario implements UserDetails {
     private Long id;
     private String login;
     private String password;
+    //@OneToMany(mappedBy = "creador", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //private List<Topico> topicos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

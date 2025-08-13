@@ -1,6 +1,7 @@
 package com.camartin.forohubapi.forohub.controller;
 
 import com.camartin.forohubapi.forohub.domain.topico.*;
+import com.camartin.forohubapi.forohub.domain.usuario.Usuario;
 import com.camartin.forohubapi.forohub.domain.usuario.UsuarioRepository;
 import com.camartin.forohubapi.forohub.infra.security.TokenService;
 import jakarta.validation.Valid;
@@ -29,9 +30,9 @@ public class TopicoController {
 
         var subject = tokenService.getSubject(autorizacion.replace("Bearer ",""));
         //Saco usuario del JWT para usarlo como autor del tópico
-        var usuario = usuarioRepository.findByLogin(subject);
+        var usuario = (Usuario) usuarioRepository.findByLogin(subject);
 
-        var topico = new Topico(datos, usuario.getUsername());
+        var topico = new Topico(datos, usuario);
         repository.save(topico);
         var uri = uriComponentsBuilder.path("/topicos/{id}").buildAndExpand(topico. getId()).toUri();
         return ResponseEntity.created(uri).body(new DatosDetalleTopico(topico));
@@ -40,7 +41,7 @@ public class TopicoController {
     @GetMapping
     public ResponseEntity listar() {
         var respuesta = repository.findAll();
-        return ResponseEntity.ok(respuesta);
+        return ResponseEntity.ok(respuesta.stream().map(res-> new DatosDetalleTopico(res)));
     }
 
     @GetMapping("/{id}")
