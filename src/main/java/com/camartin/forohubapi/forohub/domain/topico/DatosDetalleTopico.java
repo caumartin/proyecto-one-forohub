@@ -1,5 +1,7 @@
 package com.camartin.forohubapi.forohub.domain.topico;
 
+import com.camartin.forohubapi.forohub.domain.respuesta.DatosDetalleRespuesta;
+import com.camartin.forohubapi.forohub.domain.respuesta.Respuesta;
 import com.camartin.forohubapi.forohub.domain.usuario.Usuario;
 
 import java.time.LocalDateTime;
@@ -13,7 +15,7 @@ public record DatosDetalleTopico(
         Status estado,
         String creador,
         Curso curso,
-        String respuestas
+        List<DatosDetalleRespuesta> respuestas
 ) {
     public DatosDetalleTopico(Topico topico) {
         this(
@@ -24,7 +26,7 @@ public record DatosDetalleTopico(
                 topico.getEstado(),
                 topico.getCreador().getUsername(),
                 topico.getCurso(),
-                topico.getRespuestas()
+                topico.getRespuestas().stream().map(res -> new DatosDetalleRespuesta(res)).toList()
         );
     }
 }

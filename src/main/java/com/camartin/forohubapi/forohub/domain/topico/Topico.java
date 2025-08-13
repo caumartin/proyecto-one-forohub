@@ -1,12 +1,11 @@
 package com.camartin.forohubapi.forohub.domain.topico;
 
+import com.camartin.forohubapi.forohub.domain.respuesta.Respuesta;
 import com.camartin.forohubapi.forohub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +31,8 @@ public class Topico {
     private Usuario creador;
     @Enumerated(EnumType.STRING)
     private Curso curso;
-    private String respuestas;
+    @OneToMany (mappedBy = "topico", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Respuesta> respuestas;
 
     public Topico(DatosCrearTopico topico, Usuario usuario) {
 
