@@ -43,6 +43,7 @@ Body:
 
 <h3>titulo, mensaje, curso: REQUERIDOS</h3> 
 
+NOTA: no se envía referencia de usuario, se asume que el usuario logueado es el creador, por lo tanto se toma esa información del token JWT
 
 <h2>PUT /topicos/n</h2>
 Bearer Token: REQUERIDO
@@ -69,6 +70,8 @@ Body:
 	}
 
 <h3>mensaje: REQUERIDO</h3>
+
+NOTA: no se envía referencia de usuario, se asume que el usuario logueado es el creador, por lo tanto se toma esa información del token JWT
 
 
 <h2>GET /topicos/n/respuestas</h2>
